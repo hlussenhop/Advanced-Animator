@@ -5,7 +5,7 @@ package cs3500.model;
  */
 public enum ShapeType {
 
-  TRIANGLE("triangle"), RECTANGLE("rectangle"), OVAL("oval"), STAR("star");
+  TRIANGLE("triangle"), RECTANGLE("rectangle"), OVAL("ellipse");
 
   private final String name;
 

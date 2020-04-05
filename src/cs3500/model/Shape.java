@@ -136,7 +136,7 @@ public class Shape implements Comparable {
         Integer.parseInt(cg2), Integer.parseInt(cb2)));
   }
 
-  private int tween(int oldVal, int newVal, int initTick, int currentTick, int finalTick){
+  private int tween(int oldVal, int newVal, int initTick, int currentTick, int finalTick) {
     return ((int) Math.round(oldVal * (double) (finalTick - currentTick) /
         (double) (finalTick - initTick) + newVal * (double) (currentTick - initTick) /
         (double) (finalTick - initTick)));
@@ -164,28 +164,31 @@ public class Shape implements Comparable {
     Dimension old_d = log.get(recentTick).getD();
     Color old_c = log.get(recentTick).getC();
     for (int i = recentTick + 1; i <= tick; ++i) {
-      Position new_p = new Position(tween(old_p.getX(),p.getX(), recentTick, i, tick),
-          tween(old_p.getY(),p.getY(), recentTick, i, tick));
-      Dimension new_d = new Dimension(tween(old_d.getH(),d.getH(), recentTick, i, tick),
-          tween(old_d.getW(),d.getW(), recentTick, i, tick));
-      Color new_c = new Color(tween(old_c.getRed(),c.getRed(), recentTick, i, tick),
-          tween(old_c.getGreen(),c.getGreen(), recentTick, i, tick),
-          tween(old_c.getBlue(),c.getBlue(), recentTick, i, tick));
+      Position new_p = new Position(tween(old_p.getX(), p.getX(), recentTick, i, tick),
+          tween(old_p.getY(), p.getY(), recentTick, i, tick));
+      Dimension new_d = new Dimension(tween(old_d.getH(), d.getH(), recentTick, i, tick),
+          tween(old_d.getW(), d.getW(), recentTick, i, tick));
+      Color new_c = new Color(tween(old_c.getRed(), c.getRed(), recentTick, i, tick),
+          tween(old_c.getGreen(), c.getGreen(), recentTick, i, tick),
+          tween(old_c.getBlue(), c.getBlue(), recentTick, i, tick));
       log.put(i, new ShapeState(i, s, new_p, new_d, new_c));
     }
     recentTick = tick;
   }
 
-  private void updateLog(){
+  /**
+   * Updates log based on log_str, this enables editing of shapes and updating their keyframes.
+   */
+  public void updateLog() {
     log.clear();
     String[] lines = log_str.toString().split("\n");
     recentTick = 0;
-    for(String line : lines){
-      String [] tokens = line.split(" ");
+    for (String line : lines) {
+      String[] tokens = line.split(" ");
       setNewState(Integer.parseInt(tokens[10]), new Position(Integer.parseInt(tokens[11]),
-              Integer.parseInt(tokens[12])), new Dimension(Integer.parseInt(tokens[13]),
-              Integer.parseInt(tokens[14])), new Color(Integer.parseInt(tokens[15]),
-              Integer.parseInt(tokens[16]), Integer.parseInt(tokens[17])));
+          Integer.parseInt(tokens[12])), new Dimension(Integer.parseInt(tokens[13]),
+          Integer.parseInt(tokens[14])), new Color(Integer.parseInt(tokens[15]),
+          Integer.parseInt(tokens[16]), Integer.parseInt(tokens[17])));
     }
     this.average_size = getSize();
   }
@@ -196,7 +199,6 @@ public class Shape implements Comparable {
    * @return ShapeState, s
    */
   public Map<Integer, ShapeState> getLog() {
-    //updateLog();
     return log;
   }
 
@@ -216,6 +218,15 @@ public class Shape implements Comparable {
    */
   public String getLogStr() {
     return log_str.toString();
+  }
+
+  /**
+   * Allows for editing of log_str and updating log in edit view
+   *
+   * @param logStr String of new log
+   */
+  public void setLogStr(String logStr) {
+    log_str = new StringBuilder(logStr);
   }
 
   /**

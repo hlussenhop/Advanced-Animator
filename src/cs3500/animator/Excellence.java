@@ -6,6 +6,7 @@ import cs3500.animator.util.AnimationBuilder;
 import cs3500.animator.util.AnimationReader;
 import cs3500.animator.view.AMIView;
 import cs3500.animator.view.BasicView;
+import cs3500.animator.view.ControlView;
 import cs3500.animator.view.SVGView;
 import cs3500.animator.view.TextView;
 
@@ -39,6 +40,9 @@ public final class Excellence {
               break;
             case ("visual"):
               builder = BasicView.Builder.newInstance();
+              break;
+            case("edit"):
+              builder = ControlView.Builder.newInstance();
               break;
             default:
               throw new IllegalArgumentException("Invalid entry");

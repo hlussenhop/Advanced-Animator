@@ -50,10 +50,15 @@ public class BasicAMI implements AnimationModelInterface {
     return elements.get(name);
   }
 
-  public int getLength(){
+  /**
+   * Returns the highest tick number of an animation, therefore the length.
+   *
+   * @return length, int
+   */
+  public int getLength() {
     int length = 0;
-    for(Map.Entry<String, Shape> e : elements.entrySet()){
-      if(e.getValue().getRecentTick() > length){
+    for (Map.Entry<String, Shape> e : elements.entrySet()) {
+      if (e.getValue().getRecentTick() > length) {
         length = e.getValue().getRecentTick();
       }
     }
@@ -61,7 +66,7 @@ public class BasicAMI implements AnimationModelInterface {
   }
 
   /**
-   * Returns dimensions of animation
+   * Returns dimensions of animation.
    *
    * @return dim
    */
@@ -70,7 +75,7 @@ public class BasicAMI implements AnimationModelInterface {
   }
 
   /**
-   * Returns position of animation
+   * Returns position of animation.
    *
    * @return pos
    */
@@ -79,7 +84,7 @@ public class BasicAMI implements AnimationModelInterface {
   }
 
   /**
-   * Returns resolution of animation
+   * Returns resolution of animation.
    *
    * @return resolution
    */
@@ -88,7 +93,7 @@ public class BasicAMI implements AnimationModelInterface {
   }
 
   /**
-   * Returns speed of animation
+   * Returns speed of animation.
    *
    * @return speed
    */
@@ -96,7 +101,12 @@ public class BasicAMI implements AnimationModelInterface {
     return speed;
   }
 
-  public void setSpeed(int speed){
+  /**
+   * Sets the speed of the animation, enabling edit view.
+   *
+   * @param speed New speed
+   */
+  public void setSpeed(int speed) {
     this.speed = speed;
   }
 

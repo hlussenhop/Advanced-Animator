@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 import cs3500.animator.util.AnimationBuilder;
 import cs3500.model.AnimationModelInterface;
@@ -110,15 +110,30 @@ public class BasicView extends JFrame implements AMIView {
     this.add(panel);
   }
 
-  public BasicAMI getModel(){
+  /**
+   * Returns model, for use in ControlView.
+   *
+   * @return model
+   */
+  public BasicAMI getModel() {
     return model;
   }
 
-  public AMIPanel getPanel(){
+  /**
+   * Returns panel, for use in ControlView.
+   *
+   * @return panel
+   */
+  public AMIPanel getPanel() {
     return panel;
   }
 
-  public void updatePanel(int tick){
+  /**
+   * Updates panel based on the given tick.
+   *
+   * @param tick Tick time
+   */
+  public void updatePanel(int tick) {
     ArrayList<ShapeState> arr = new ArrayList<>();
     for (Map.Entry<String, Shape> e : model.getElements().entrySet()) {
       try {

@@ -1,30 +1,45 @@
 package cs3500.animator.view;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JButton;
 
+/**
+ * Class to have unique button functionality.
+ */
 public class ControlButton extends JButton {
 
-  public class Listener implements ActionListener{
+  /**
+   * Implements ActionListener to take construction parameters.
+   */
+  public class Listener implements ActionListener {
     private JButton button;
-    public Listener(JButton b){
+    private String name;
+    private String alt;
+
+    /**
+     * Constructor for listener.
+     *
+     * @param b    JButton
+     * @param name Name of button
+     * @param alt  Alternative name
+     */
+    public Listener(JButton b, String name, String alt) {
       this.button = b;
+      this.name = name;
+      this.alt = alt;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-      if(!click) {
+      if (!click) {
         if (isPressed) {
           isPressed = false;
-          button.setBackground(Color.BLUE);
+          button.setText(name);
         } else {
           isPressed = true;
-          button.setBackground(Color.RED);
+          button.setText(alt);
         }
       }
     }
@@ -33,25 +48,17 @@ public class ControlButton extends JButton {
   private boolean isPressed;
   private boolean click;
 
-  private Image getScaledImage(Image srcImg, int w, int h){
-    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-    Graphics2D g2 = resizedImg.createGraphics();
-    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-    g2.drawImage(srcImg, 0, 0, w, h, null);
-    g2.dispose();
-    return resizedImg;
-  }
-
-  public ControlButton(String png, int width, int height, boolean click){
+  /**
+   * Constructor for controlButton.
+   *
+   * @param name  Name of controlButton
+   * @param alt   Alternative name
+   * @param click Whether it stays pressed, or just a click
+   */
+  public ControlButton(String name, String alt, boolean click) {
     this.isPressed = false;
     this.click = click;
-    try {
-      Image img = ImageIO.read(new File(png));
-      this.setIcon(new ImageIcon(getScaledImage(img,width,height)));
-    } catch (Exception ex) {
-      System.out.println(ex);
-    }
-    this.setBackground(Color.BLUE);
-    this.addActionListener(new Listener(this));
+    this.setText(name);
+    this.addActionListener(new Listener(this, name, alt));
   }
 }
