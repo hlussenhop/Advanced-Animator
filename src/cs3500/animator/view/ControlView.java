@@ -147,14 +147,55 @@ public class ControlView extends JFrame implements AMIView {
     controls.addRestart(a);
   }
 
+  private boolean validateLine(String name, String line){
+    String[] tokens = line.split(" ");
+    if(tokens.length != 18){
+      return false;
+    }
+    if(!tokens[0].equals("motion")){
+      return false;
+    }
+    if(!tokens[1].equals(name)){
+      return false;
+    }
+    if(Integer.parseInt(tokens[2]) < 1 || Integer.parseInt(tokens[10]) < 1){
+      return false;
+    }
+    if(Integer.parseInt(tokens[5]) < 0 || Integer.parseInt(tokens[6]) < 0 ||
+        Integer.parseInt(tokens[13]) < 0 || Integer.parseInt(tokens[14]) < 0){
+      return false;
+    }
+    if(Integer.parseInt(tokens[7]) < 0 || Integer.parseInt(tokens[7]) > 255 ||
+        Integer.parseInt(tokens[8]) < 0 || Integer.parseInt(tokens[8]) > 255 ||
+        Integer.parseInt(tokens[9]) < 0 || Integer.parseInt(tokens[9]) > 255 ||
+        Integer.parseInt(tokens[15]) < 0 || Integer.parseInt(tokens[15]) > 255 ||
+        Integer.parseInt(tokens[16]) < 0 || Integer.parseInt(tokens[16]) > 255 ||
+        Integer.parseInt(tokens[17]) < 0 || Integer.parseInt(tokens[17]) > 255){
+      return false;
+    }
+    return true;
+  }
+
   private void addSave() {
     ActionListener a = e -> {
       if (controls.getShapes().getSelectedItem() == "New Shape") {
         String[] text = controls.getTextArea().getText().split("\n");
+        if(text.length < 1){
+          return;
+        }
         String[] tokens = text[0].split(" ");
+        if(tokens.length != 3){
+          return;
+        }
+        if(!tokens[2].equals("ellipse") && !tokens[2].equals("rectangle")){
+          return;
+        }
         Shape s = new Shape(tokens[1], tokens[2]);
         StringBuilder log = new StringBuilder();
         for (int i = 1; i < text.length; ++i) {
+          if(!validateLine(tokens[1],text[i])){
+            return;
+          }
           log.append(text[i]).append("\n");
         }
         s.setLogStr(log.toString());
@@ -162,6 +203,12 @@ public class ControlView extends JFrame implements AMIView {
         model.addShape(s);
         controls.getShapes().addItem(s.getName());
       } else {
+        String[] check = controls.getTextArea().getText().split("\n");
+        for(String s : check){
+          if(!validateLine((String) controls.getShapes().getSelectedItem(),s)){
+            return;
+          }
+        }
         model.getElements().get(controls.getShapes().getSelectedItem()).
             setLogStr(controls.getTextArea().getText());
         model.getElements().get(controls.getShapes().getSelectedItem()).updateLog();
@@ -188,11 +235,20 @@ public class ControlView extends JFrame implements AMIView {
             get(controls.getShapes().getSelectedItem()).getLogStr());
       } catch (Exception ex) {
         controls.getTextArea().setText("shape \"Name\" \"ShapeType\"\n" +
-            "motion \"Name\" 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n" +
-            "motion \"Name\" 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0");
+            "motion \"Name\" 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0\n" +
+            "motion \"Name\" 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0");
       }
     };
     controls.getShapes().addActionListener(a);
+  }
+
+  /**
+   * FOR TESTING: gets control panel
+   *
+   * @return controls
+   */
+  public ControlPanel getControls(){
+    return controls;
   }
 
   @Override

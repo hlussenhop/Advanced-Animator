@@ -95,6 +95,15 @@ public class ControlPanel extends JPanel {
   }
 
   /**
+   * FOR TESTING: gets the save button
+   *
+   * @return save
+   */
+  public JButton getSave(){
+    return save;
+  }
+
+  /**
    * Constructor for ControlPanel.
    *
    * @param model Takes a BasicAMI model
