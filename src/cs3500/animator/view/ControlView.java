@@ -21,7 +21,6 @@ public class ControlView extends JFrame implements AMIView {
 
   private final BasicView animation;
   private final BasicAMI model;
-  private final AMIPanel panel;
   private final ControlPanel controls;
   private boolean playing = false;
   private boolean looping = false;
@@ -60,7 +59,8 @@ public class ControlView extends JFrame implements AMIView {
 
     @Override
     public AnimationBuilder<AMIView> setBounds(int x, int y, int width, int height) {
-      model = new BasicAMI(new cs3500.model.Dimension(width, height), new Position(x, y), 10, speed);
+      model = new BasicAMI(new cs3500.model.Dimension(width, height), new Position(x, y),
+              10, speed);
       view = new BasicView("animation", model);
       return this;
     }
@@ -95,7 +95,7 @@ public class ControlView extends JFrame implements AMIView {
   public ControlView(BasicView view) {
     this.animation = view;
     this.model = this.animation.getModel();
-    this.panel = this.animation.getPanel();
+    AMIPanel panel = this.animation.getPanel();
     this.controls = new ControlPanel(model);
     setSize((model.getDimension().getW() * 4) / 3, model.getDimension().getH());
     setLocation(model.getPosition().getX(), model.getPosition().getY());
@@ -104,7 +104,7 @@ public class ControlView extends JFrame implements AMIView {
     container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
     panel.setPreferredSize(new Dimension(model.getDimension().getW(),
         model.getDimension().getH()));
-    container.add(this.panel);
+    container.add(panel);
     controls.setPreferredSize(new Dimension(model.getDimension().getW() / 3,
         model.getDimension().getH()));
     container.add(this.controls);
@@ -147,53 +147,50 @@ public class ControlView extends JFrame implements AMIView {
     controls.addRestart(a);
   }
 
-  private boolean validateLine(String name, String line){
+  private boolean validateLine(String name, String line) {
     String[] tokens = line.split(" ");
-    if(tokens.length != 18){
+    if (tokens.length != 18) {
       return false;
     }
-    if(!tokens[0].equals("motion")){
+    if (!tokens[0].equals("motion")) {
       return false;
     }
-    if(!tokens[1].equals(name)){
+    if (!tokens[1].equals(name)) {
       return false;
     }
-    if(Integer.parseInt(tokens[2]) < 1 || Integer.parseInt(tokens[10]) < 1){
+    if (Integer.parseInt(tokens[2]) < 1 || Integer.parseInt(tokens[10]) < 1) {
       return false;
     }
-    if(Integer.parseInt(tokens[5]) < 0 || Integer.parseInt(tokens[6]) < 0 ||
-        Integer.parseInt(tokens[13]) < 0 || Integer.parseInt(tokens[14]) < 0){
+    if (Integer.parseInt(tokens[5]) < 0 || Integer.parseInt(tokens[6]) < 0 ||
+        Integer.parseInt(tokens[13]) < 0 || Integer.parseInt(tokens[14]) < 0) {
       return false;
     }
-    if(Integer.parseInt(tokens[7]) < 0 || Integer.parseInt(tokens[7]) > 255 ||
-        Integer.parseInt(tokens[8]) < 0 || Integer.parseInt(tokens[8]) > 255 ||
-        Integer.parseInt(tokens[9]) < 0 || Integer.parseInt(tokens[9]) > 255 ||
-        Integer.parseInt(tokens[15]) < 0 || Integer.parseInt(tokens[15]) > 255 ||
-        Integer.parseInt(tokens[16]) < 0 || Integer.parseInt(tokens[16]) > 255 ||
-        Integer.parseInt(tokens[17]) < 0 || Integer.parseInt(tokens[17]) > 255){
-      return false;
-    }
-    return true;
+    return Integer.parseInt(tokens[7]) >= 0 && Integer.parseInt(tokens[7]) <= 255 &&
+            Integer.parseInt(tokens[8]) >= 0 && Integer.parseInt(tokens[8]) <= 255 &&
+            Integer.parseInt(tokens[9]) >= 0 && Integer.parseInt(tokens[9]) <= 255 &&
+            Integer.parseInt(tokens[15]) >= 0 && Integer.parseInt(tokens[15]) <= 255 &&
+            Integer.parseInt(tokens[16]) >= 0 && Integer.parseInt(tokens[16]) <= 255 &&
+            Integer.parseInt(tokens[17]) >= 0 && Integer.parseInt(tokens[17]) <= 255;
   }
 
   private void addSave() {
     ActionListener a = e -> {
-      if (controls.getShapes().getSelectedItem() == "New Shape") {
+      if (controls.getShapes().getSelectedItem().equals("New Shape")) {
         String[] text = controls.getTextArea().getText().split("\n");
-        if(text.length < 1){
+        if (text.length < 1) {
           return;
         }
         String[] tokens = text[0].split(" ");
-        if(tokens.length != 3){
+        if (tokens.length != 3) {
           return;
         }
-        if(!tokens[2].equals("ellipse") && !tokens[2].equals("rectangle")){
+        if (!tokens[2].equals("ellipse") && !tokens[2].equals("rectangle")) {
           return;
         }
         Shape s = new Shape(tokens[1], tokens[2]);
         StringBuilder log = new StringBuilder();
         for (int i = 1; i < text.length; ++i) {
-          if(!validateLine(tokens[1],text[i])){
+          if (!validateLine(tokens[1],text[i])) {
             return;
           }
           log.append(text[i]).append("\n");
@@ -204,8 +201,8 @@ public class ControlView extends JFrame implements AMIView {
         controls.getShapes().addItem(s.getName());
       } else {
         String[] check = controls.getTextArea().getText().split("\n");
-        for(String s : check){
-          if(!validateLine((String) controls.getShapes().getSelectedItem(),s)){
+        for (String s : check) {
+          if (!validateLine((String) controls.getShapes().getSelectedItem(),s)) {
             return;
           }
         }
@@ -243,11 +240,11 @@ public class ControlView extends JFrame implements AMIView {
   }
 
   /**
-   * FOR TESTING: gets control panel
+   * FOR TESTING: gets control panel.
    *
    * @return controls
    */
-  public ControlPanel getControls(){
+  public ControlPanel getControls() {
     return controls;
   }
 

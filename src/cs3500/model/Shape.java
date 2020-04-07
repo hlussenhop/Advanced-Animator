@@ -102,7 +102,7 @@ public class Shape implements Comparable {
   }
 
   /**
-   * Sets a new state for the shape, taking only string inputs
+   * Sets a new state for the shape, taking only string inputs.
    *
    * @param tick1 First tick
    * @param px1   First x position
@@ -136,12 +136,6 @@ public class Shape implements Comparable {
         Integer.parseInt(cg2), Integer.parseInt(cb2)));
   }
 
-  private int tween(int oldVal, int newVal, int initTick, int currentTick, int finalTick) {
-    return ((int) Math.round(oldVal * (double) (finalTick - currentTick) /
-        (double) (finalTick - initTick) + newVal * (double) (currentTick - initTick) /
-        (double) (finalTick - initTick)));
-  }
-
   /**
    * setNewState adds another ShapeState to a shape's history.
    *
@@ -165,16 +159,24 @@ public class Shape implements Comparable {
     Color old_c = log.get(recentTick).getC();
     for (int i = recentTick + 1; i <= tick; ++i) {
       Position new_p = new Position(tween(old_p.getX(), p.getX(), recentTick, i, tick),
-          tween(old_p.getY(), p.getY(), recentTick, i, tick));
+              tween(old_p.getY(), p.getY(), recentTick, i, tick));
       Dimension new_d = new Dimension(tween(old_d.getH(), d.getH(), recentTick, i, tick),
-          tween(old_d.getW(), d.getW(), recentTick, i, tick));
+              tween(old_d.getW(), d.getW(), recentTick, i, tick));
       Color new_c = new Color(tween(old_c.getRed(), c.getRed(), recentTick, i, tick),
-          tween(old_c.getGreen(), c.getGreen(), recentTick, i, tick),
-          tween(old_c.getBlue(), c.getBlue(), recentTick, i, tick));
+              tween(old_c.getGreen(), c.getGreen(), recentTick, i, tick),
+              tween(old_c.getBlue(), c.getBlue(), recentTick, i, tick));
       log.put(i, new ShapeState(i, s, new_p, new_d, new_c));
     }
     recentTick = tick;
   }
+
+  private int tween(int oldVal, int newVal, int initTick, int currentTick, int finalTick) {
+    return ((int) Math.round(oldVal * (double) (finalTick - currentTick) /
+        (double) (finalTick - initTick) + newVal * (double) (currentTick - initTick) /
+        (double) (finalTick - initTick)));
+  }
+
+
 
   /**
    * Updates log based on log_str, this enables editing of shapes and updating their keyframes.
@@ -221,7 +223,7 @@ public class Shape implements Comparable {
   }
 
   /**
-   * Allows for editing of log_str and updating log in edit view
+   * Allows for editing of log_str and updating log in edit view.
    *
    * @param logStr String of new log
    */
@@ -274,7 +276,7 @@ public class Shape implements Comparable {
   }
 
   /**
-   * Returns the most recent tick added
+   * Returns the most recent tick added.
    *
    * @return recentTick
    */

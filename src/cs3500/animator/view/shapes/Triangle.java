@@ -22,11 +22,14 @@ public class Triangle implements ShapeCommand {
   }
 
   @Override
-  public void go(Graphics2D g) {
+  public void goAnimate(Graphics2D g) {
     g.setColor(s.getC());
-    g.fillPolygon(new int[]{(s.getP().getX() - (s.getD().getW() / 2)), s.getP().getX(),
-        (s.getP().getX() + (s.getD().getW() / 2))}, new int[]{(s.getP().getY() +
-        (s.getD().getH() / 2)), (s.getP().getY() - (s.getD().getH() / 2)), (s.getP().getY() +
-        (s.getD().getH() / 2))}, 3);
+    g.fillPolygon(new int[]{(s.getP().getX() - (s.getD().getW()
+                    / 2)), s.getP().getX(), (s.getP().getX() +
+                    (s.getD().getW() / 2))},
+            new int[]{(s.getP().getY() + (s.getD().getH()
+                    / 2)), (s.getP().getY() - (s.getD().getH() / 2)), (s.getP().getY()
+                    + (s.getD().getH()
+                    / 2))}, 3);
   }
 }

@@ -29,7 +29,6 @@ public class ControlPanel extends JPanel {
   private final JSlider speed = new JSlider(JSlider.HORIZONTAL, 1, 5, 1);
   private final JComboBox<String> shapes = new JComboBox<String>();
   private final JTextArea shapeContent = new JTextArea();
-  private final BasicAMI model;
 
   /**
    * Adds actionListener to play/pause button.
@@ -95,11 +94,11 @@ public class ControlPanel extends JPanel {
   }
 
   /**
-   * FOR TESTING: gets the save button
+   * FOR TESTING: gets the save button.
    *
    * @return save
    */
-  public JButton getSave(){
+  public JButton getSave() {
     return save;
   }
 
@@ -109,7 +108,6 @@ public class ControlPanel extends JPanel {
    * @param model Takes a BasicAMI model
    */
   public ControlPanel(BasicAMI model) {
-    this.model = model;
     Hashtable<Integer, JLabel> labels = new Hashtable<>();
     labels.put(1, new JLabel("1x"));
     labels.put(2, new JLabel("2x"));

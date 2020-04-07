@@ -22,7 +22,7 @@ public class Rectangle implements ShapeCommand {
   }
 
   @Override
-  public void go(Graphics2D g) {
+  public void goAnimate(Graphics2D g) {
     g.setColor(s.getC());
     g.fillRect(s.getP().getX(), s.getP().getY(), s.getD().getW(), s.getD().getH());
   }

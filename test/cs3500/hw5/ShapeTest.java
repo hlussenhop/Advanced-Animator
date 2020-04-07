@@ -1,13 +1,13 @@
 package cs3500.hw5;
 
-import org.junit.Test;
+//import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 
-import java.awt.Color;
-import java.util.ArrayList;
+//import java.awt.Color;
+//import java.util.ArrayList;
 
-import cs3500.model.*;
+//import cs3500.model.*;
 
 /**
  * Class to test Shape.

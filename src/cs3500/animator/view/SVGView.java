@@ -79,13 +79,17 @@ public class SVGView implements AMIView {
     }
 
     @Override
-    public AnimationBuilder<AMIView> addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
-      model.getShape(name).setNewState(t1, x1, y1, h1, w1, r1, g1, b1, t2, x2, y2, h2, w2, r2, g2, b2);
+    public AnimationBuilder<AMIView> addMotion(String name, int t1, int x1, int y1, int w1, int h1,
+                                               int r1, int g1, int b1, int t2, int x2, int y2,
+                                               int w2, int h2, int r2, int g2, int b2) {
+      model.getShape(name).setNewState(t1, x1, y1, h1, w1, r1, g1, b1, t2, x2, y2, h2, w2, r2,
+              g2, b2);
       return this;
     }
 
     @Override
-    public AnimationBuilder<AMIView> addKeyframe(String name, int t, int x, int y, int w, int h, int r, int g, int b) {
+    public AnimationBuilder<AMIView> addKeyframe(String name, int t, int x, int y, int w, int h,
+                                                 int r, int g, int b) {
       throw new IllegalStateException("Don't use this");
     }
   }

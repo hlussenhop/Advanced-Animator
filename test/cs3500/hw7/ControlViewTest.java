@@ -25,13 +25,14 @@ public class ControlViewTest {
     BasicView basicView = new BasicView("animation",ami1);
     ControlView view = new ControlView(basicView);
     rect.setLogStr("motion rect 127 462 162 6 6 255 255 255 127 462 162 6 6 255 255 255\n"
-        +"motion rect 127 462 162 6 6 255 255 255 200 462 162 6 6 255 255 255");
+        + "motion rect 127 462 162 6 6 255 255 255 200 462 162 6 6 255 255 255");
     view.getControls().getShapes().setSelectedItem(rect.getName());
-    view.getControls().getTextArea().setText("motion rect 1 462 162 6 6 255 255 255 1 462 162 6 6 255 255 255\n"
-        +"motion rect 1 462 162 6 6 255 255 255 200 462 162 6 6 255 255 255");
+    view.getControls().getTextArea().setText("motion rect 1 462 162 6 6 255 255 255 1 462 162 6" +
+            " 6 255 255 255\n"
+        + "motion rect 1 462 162 6 6 255 255 255 200 462 162 6 6 255 255 255");
     view.getControls().getSave().doClick();
     assertEquals("motion rect 1 462 162 6 6 255 255 255 1 462 162 6 6 255 255 255\n"
-        +"motion rect 1 462 162 6 6 255 255 255 200 462 162 6 6 255 255 255",rect.getLogStr());
+        + "motion rect 1 462 162 6 6 255 255 255 200 462 162 6 6 255 255 255",rect.getLogStr());
   }
 
   @Test

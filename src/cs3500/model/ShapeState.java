@@ -64,7 +64,7 @@ public class ShapeState implements Comparable {
   }
 
   /**
-   * Returns dimensions of ShapeState
+   * Returns dimensions of ShapeState.
    *
    * @return d
    */
@@ -77,7 +77,7 @@ public class ShapeState implements Comparable {
   }
 
   /**
-   * Returns color of ShapeState
+   * Returns color of ShapeState.
    *
    * @return c
    */
@@ -86,7 +86,7 @@ public class ShapeState implements Comparable {
   }
 
   /**
-   * Returns ShapeType of Shape State
+   * Returns ShapeType of Shape State.
    *
    * @return t
    */

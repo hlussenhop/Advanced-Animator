@@ -1,5 +1,9 @@
 package cs3500.animator.util;
 
+/**Interface for the Animation Builder.
+ *
+ * @param <Doc> document
+ */
 public interface AnimationBuilder<Doc> {
   /**
    * Constructs a final document.
