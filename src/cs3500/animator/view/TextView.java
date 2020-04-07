@@ -93,7 +93,6 @@ public class TextView implements AMIView {
   @Override
   public void view() {
     this.view = model.textOutput();
-    System.out.print(model.textOutput());
   }
 
   /**
